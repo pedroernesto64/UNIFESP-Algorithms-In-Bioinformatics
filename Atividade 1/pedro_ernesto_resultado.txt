@@ -1,0 +1,15 @@
+>AF380138.1 Monkeypox virus strain Zaire-96-I-16, complete genome - trecho aletório do genoma
+A: 249
+T: 216
+C: 100
+G: 115
+U: 0
+Total: 680 nucleotídeos
+
+>gi|2252621186|gb|ON751962.1| Monkeypox virus isolate Monkeypox/BR0001/2022, partial genome - trecho aleatório do genoma
+A: 226
+T: 246
+C: 118
+G: 106
+U: 0
+Total: 696 nucleotídeos

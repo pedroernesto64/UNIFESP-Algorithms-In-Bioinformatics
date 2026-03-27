@@ -1,0 +1,94 @@
+Pedro Ernesto Duarte Pilchowski - RA: 156.331
+Atividade 1 - Algoritmos em Bioinformática
+
+------------------------------
+
+O arquivo fasta e o código python devem estar no mesmo diretório.
+A importação do arquivo é feita com:
+
+arquivo = "Monkeypox_virus-trechos.fasta"
+with open(arquivo, 'r') as f:
+
+Esse trecho guarda o nome do arquivo (ou o diretório dele) na variável "arquivo".
+Após isso, é usada a função "open", que irá abrir o arquivo em modo read ('r') e salvar seu conteúdo em f, como um array de linhas.
+
+------------------------------
+
+Declaramos a função conta_nucleotideos, que recebe como argumento uma das linhas do arquivo (que não seja o cabeçalho).
+
+def conta_nucleotideos(sequencia):
+    a=t=c=g=u=0
+    for nucleotideo in sequencia:
+        match nucleotideo:
+            case 'A':
+                a+=1
+            case 'T':
+                t+=1
+            case 'C':
+                c+=1
+            case 'G':
+                g+=1
+            case 'U':
+                u+=1            
+    return a,t,c,g,u
+
+As variáveis a,t,c,g,u, que representam os nucleotídeos, são inicializadas com 0.
+Em seguida, o for loop escaneia cada caractere na linha, salvando-o na variável "nucleotideo'.
+Então, o switch-case irá comparar cada caractere, e incrementar sua variável correspondente.
+Isso irá se repetir até que toda a linha seja percorrida.
+Finalmente, a função retornará uma tupla (uma coleção imutável de itens) com a quantidade de cada nucleotídeo.
+
+------------------------------
+
+sum_a=sum_t=sum_c=sum_g=sum_u=0
+with open("resultado.txt", 'w') as w:
+
+Esses trechos, respectivamente, inicializa as variáveis acumuladoras de cada genoma com 0,
+e abre (ou cria, caso não exista) o arquivo resultado.txt em modo write ('w'), e salva um objeto de arquivo
+na variável w, de forma que o arquivo possa ser escrito ao longo do código por meio dessa variável.
+
+------------------------------
+
+    with open(arquivo, 'r') as f:
+        for l in f:
+
+Em for l in f:, estamos usando o for para percorrer cada linha (guardada na variável l) do arquivo salvo na variável f
+
+            if l[0] == '>':
+
+Essa linha acessa o primeiro caractere da linha, e verifica se é '>'. Se for o caso, a linha em questão será o cabeçalho.
+Em seguida, será feita a soma das variáveis acumuladoras, guardada na variável "soma".
+Se essa soma for 0, é um indicativo de que ainda não foi realizada a análise do genoma, e portanto a única ação
+do código será imprimir o cabeçalho.
+Porém, se o primeiro caractere da linha for '>', e a variável "soma" não for 0, significa que já estamos passando para o próximo cabeçalho,
+e portanto é necessário imprimir o resultado da última análise, bem como zerar as variáveis acumuladoras para permitir uma nova análise.
+Todos os prints contém "file=w" no final, para que o output seja direcionado ao arquivo "resultado.txt".
+                
+                soma=sum_a+sum_t+sum_c+sum_g+sum_u
+                if (soma!=0):
+                    print(f"A: {sum_a}\nT: {sum_t}\nC: {sum_c}\nG: {sum_g}\nU: {sum_u}\nTotal: {soma} nucleotídeos\n", file=w)
+                    sum_a=sum_t=sum_c=sum_g=sum_u=0
+                print(l, end="", file=w)
+
+------------------------------
+
+            else:
+                a,t,c,g,u = conta_nucleotideos(l)
+                sum_a+=a
+                sum_t+=t
+                sum_c+=c
+                sum_g+=g
+                sum_u+=u
+
+Esse trecho é acessado quando o primeiro caractere da linha não é '>' (e portanto, se trata do genoma).
+Ele chama a função conta_nucleotideos, usando a linha como argumento, e salva o resultado nas variáveis a,t,c,g,u.
+Em seguida, é feita a soma do resultado da função com as variáveis acumuladoras. Elas irão guardar a contagem do genoma
+inteiro, uma vez que a,t,c,g,u contam apenas os nucleotídeos de cada linha.
+
+------------------------------
+
+Esse último trecho serve para imprimir o resultado da análise do último genoma do arquivo, uma vez que o for loop
+terá sido finalizado sem obter um novo cabeçalho, e portanto não entrará no caso if l[0] == '>':, que é onde está a impressão dos resultados.
+
+        soma=sum_a+sum_t+sum_c+sum_g+sum_u
+        print(f"A: {sum_a}\nT: {sum_t}\nC: {sum_c}\nG: {sum_g}\nU: {sum_u}\nTotal: {soma} nucleotídeos", end="", file=w)
