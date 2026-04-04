@@ -1,0 +1,30 @@
+Pedro Ernesto Duarte Pilchowski - RA: 156.331
+Atividade 2 - Algoritmos em Bioinformática
+
+a) O genoma de Zaire é completo, enquanto o brasileiro é parcial. Eles diferem significativamente na linhagem evolutiva e na integridade da sequência.
+
+b) O header indica que esta é uma sequência parcial; os "N" representam lacunas onde o sequenciamento falhou por baixa cobertura ou má qualidade da amostra. São regiões onde a base nitrogenada não pôde ser determinada com precisão.
+
+c) Deve-se realizar um novo sequenciamento com maior profundidade ou utilizar bioinformática para gap filling (preenchimento por referência). O trimming (corte) de regiões de baixa qualidade também ajuda a remover essas ambiguidades.
+
+d)
+Brasil:
+	A 66027/197420 = 33,44%
+	T 65770/197420 = 33,31%
+	C 32492/197420 = 16,46%
+	G 32392/197420 = 16,41%
+	N 739/197420 = 0,37%
+
+Zaire:
+	A 66024/196858 = 33,54%
+	T 65695/196858 = 33,37%
+	C 32596/196858 = 16,56%
+	G 32543/196858 = 16,53%
+	N 0/196858 = 0%
+
+Diferença entre Brasil e Zaire:
+A: 0,10%
+T: 0,60%
+C: 0,10%
+G: 0,13%
+N: 0,37%
