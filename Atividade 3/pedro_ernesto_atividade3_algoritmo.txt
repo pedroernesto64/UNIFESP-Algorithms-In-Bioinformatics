@@ -1,0 +1,54 @@
+Pedro Ernesto Duarte Pilchowski - RA: 156.331
+Atividade 3 - Algoritmos em Bioinformática
+
+------------------------------
+
+O código utiliza a biblioteca Biopython para manipulação de sequências e arquivos FASTA. 
+A importação das ferramentas é feita com:
+
+from Bio import SeqIO
+from Bio.Seq import Seq
+
+------------------------------
+
+Declaramos o dicionário "dicionarioProteina", que mapeia cada trinca de RNA ao seu respectivo aminoácido. 
+As chaves representam os códons e os valores representam a tradução em uma letra. 
+Os códons de parada (stop codons) "UAA", "UAG" e "UGA" são representados por asterisco ('*'). 
+
+------------------------------
+
+A função geraFastaRNA recebe a lista de sequências de DNA e cria o arquivo "RNA_Zaire_mpox.fasta". 
+with open("RNA_Zaire_mpox.fasta", "w") as f:
+
+Para cada registro, o cabeçalho é adicionado do nome e RA
+A sequência de DNA é convertida em RNA através do método .transcribe(). 
+rna = str(registro.seq.transcribe())
+a
+A escrita no arquivo é feita em blocos de 70 caracteres para manter a formatação padrão. 
+for i in range(0, len(rna), 70):
+    f.write(f"{rna[i:i + 70]}\n")
+
+------------------------------
+
+A função geraFastaProteinaDicionario realiza a tradução manual percorrendo a sequência de 3 em 3 bases. 
+Para cada trinca obtida, o código consulta o "dicionarioProteina" e concatena o resultado na string "seqProteina". 
+for i in range(0, len(rna), 3):
+    trinca = rna[i:i+3]
+    seqProteina = seqProteina + dicionarioProteina[trinca]
+
+O resultado final é salvo no arquivo "Proteina_Zaire_mpox_Dicionario.fasta". 
+
+------------------------------
+
+A função geraFastaProteinaBiopython executa a mesma tarefa, mas utiliza a função nativa do Biopython para tradução. 
+proteina = str(registro.seq.translate())
+
+Este método é mais eficiente pois automatiza o processo de tradução sem a necessidade de um dicionário manual. 
+O arquivo de saída é nomeado "Proteina_Zaire_mpox_Biopython.fasta". 
+
+------------------------------
+
+No trecho final, o arquivo original ".fna" é carregado em uma lista chamada "zaire". 
+zaire = list(SeqIO.parse("Zaire Mpox cds_from_genomic.fna", "fasta"))
+
+Em seguida, as três funções são chamadas em sequência para gerar os arquivos de RNA, tradução por dicionário e tradução por Biopython. 
