@@ -1,0 +1,54 @@
+Pedro Ernesto Duarte Pilchowski - RA: 156.331
+Atividade 4 - Algoritmos em Bioinformática
+
+O código é estruturado de forma modular, separando a contagem, o processamento, a geração de gráficos e a exportação de dados em arquivos distintos.
+A importação das bibliotecas e módulos locais é feita no script principal:
+
+from Bio import SeqIO
+from processaDados import processaDados
+from plotGrafico import plotGrafico
+from montaCSV import *
+
+Declaramos a função contaNucleotideos, que recebe uma sequência e utiliza o método .count() para contabilizar as bases nitrogenadas.
+Diferente da atividade anterior, esta função também contabiliza a base "N" (nucleotídeo não identificado).
+
+def contaNucleotideos(sequencia):
+a=sequencia.count("A")
+t=sequencia.count("T")
+c=sequencia.count("C")
+g=sequencia.count("G")
+n=sequencia.count("N")
+return a,t,c,g,n
+
+A função processaDados realiza o tratamento matemático dos dados genômicos.
+Para cada entrada no arquivo, ela calcula o Conteúdo GC e a Temperatura de Melting (Tm).
+A fórmula utilizada para o GC considera a soma de C e G dividida pelo total de nucleotídeos:
+gc = (n[2]+n[3])*100/math.fsum(n)
+
+Já a Temperatura de Melting é calculada pela fórmula:
+tm = 64.9 + 0.41*gc - (500/len(entrada.seq))
+O resultado de cada sequência é armazenado em uma tupla contendo o cabeçalho, as contagens, o GC e a Tm.
+
+A função plotGrafico utiliza a biblioteca Matplotlib para gerar um gráfico de dispersão (scatter plot).
+O eixo-x representa a Temperatura de Anelamento (Tm) e o eixo-y representa o Conteúdo GC (%).
+O gráfico é personalizado com grades, títulos e a identificação do aluno, sendo salvo como "Resultado_Mpox_Zaire.png".
+
+plt.scatter(tm_eixo_x, gc_eixo_y, alpha=0.6, color='blue', edgecolors='black')
+
+O módulo montaCSV contém três funções para a exportação de resultados:
+
+    nucleotideosCSV: Cria o arquivo "Dados das sequencias.csv" com as contagens de A, T, C e G.
+
+    cgCSV: Gera o arquivo "Conteudo_CG.csv" com a razão GC formatada com três casas decimais.
+
+    temperaturaXgcCSV: Gera o arquivo "Temperatura_x_CG.csv" relacionando Tm e GC%.
+
+Cada função abre um arquivo em modo de escrita ('w') e percorre a lista de dados para salvar as informações separadas por vírgula.
+
+No bloco de execução final, o arquivo "Zaire Mpox cds_from_genomic.fna" é carregado.
+As funções são chamadas em ordem lógica: primeiro o processamento dos dados, seguido pela geração da imagem e, por fim, a criação dos três arquivos CSV de saída.
+
+zaire = list(SeqIO.parse("Zaire Mpox cds_from_genomic.fna", "fasta"))
+dados = processaDados(zaire)
+plotGrafico(dados, "Resultado_Mpox_Zaire.png")
+nucleotideosCSV(dados)
