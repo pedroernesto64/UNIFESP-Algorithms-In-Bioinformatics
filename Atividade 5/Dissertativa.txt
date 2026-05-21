@@ -1,0 +1,15 @@
+1A
+
+Essa atividade de buscar as ORFs faz parte da etapa de Anotação Estrutural (ou predição de genes) do genoma. O objetivo dela é simplesmente mapear "onde" estão os possíveis genes na fita de DNA.
+
+A próxima etapa para fechar esse ciclo é a Anotação Funcional. A relação entre as duas é de dependência: a atividade que acabamos de fazer fornece a matéria-prima. Na anotação funcional, nós vamos pegar esses arquivos FASTA gerados com os aminoácidos e compará-los com bancos de dados mundiais. É só nessa segunda etapa que a gente descobre "o que" essas proteínas fazem, ou seja, se aquela ORF que o código achou é realmente um gene de verdade ou apenas um trecho aleatório, e qual a função biológica dela no vírus.
+
+------------------------------------------
+
+1B
+
+Ao rodar o script e contar as sequências, o esperado é encontrar um número que destoe da quantidade de genes reais validados do Mpox Zaire (que possui cerca de 190 a 200 genes).
+
+O que acontece é que o nosso algoritmo vai gerar uma quantidade enorme de falsos positivos. Como a regra do código é "ingênua" (ele apenas procura um códon de início 'M' e um de parada '*' com mais de 50 aminoácidos de distância em todos os 6 frames), ele acaba captando muitas "ORFs fantasmas". Matematicamente, códons de parada aparecem ao acaso no genoma, então o programa vai ler trechos sobrepostos e fitas reversas que o vírus, na vida real, não transcreve nem traduz.
+
+Por outro lado, precisamos lembrar que o arquivo do Mpox Brazil que usamos é um genoma parcial. Então temos um conflito nos resultados: por ser um pedaço do genoma, o número de genes reais ali dentro é bem menor que o do Zaire; mas, por usarmos um algoritmo simples nos 6 frames, o número de sequências identificadas infla com os falsos positivos. Em um sequenciamento real, a imensa maioria dessas ORFs que o nosso código encontrou agora seria simplesmente descartada na etapa de anotação funcional.
