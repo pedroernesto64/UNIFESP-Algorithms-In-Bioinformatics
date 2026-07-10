@@ -1,0 +1,21 @@
+Pedro Ernesto Duarte Pilchowski - RA: 156.331
+Atividade 7 - Algoritmos em Bioinformática
+
+Descrição da Programação Dinâmica no Alinhamento Local
+
+A Programação Dinâmica é um método computacional que resolve problemas complexos quebrando-os em subproblemas menores e mais simples, armazenando os resultados para evitar recálculos (memoização). O Algoritmo de Smith-Waterman garante que encontraremos a região de maior similaridade (o melhor alinhamento) entre duas sequências dadas as regras de pontuação. São três etapas principais:
+
+1. Cria-se uma matriz de pontuação (matriz H) onde as linhas representam uma sequência (ex: seq2) e as colunas representam a outra (seq1). A primeira linha e a primeira coluna são preenchidas com zeros.
+
+2. Cada célula remanescente H[i,j] é preenchida com base nos valores das células vizinhas anteriores (diagonal, cima e esquerda), aplicando a seguinte equação matemática:
+
+H[i,j] = MAXIMO {
+	H[i-1, j-1] + s(a[i], b[j]) [Match / Mismatch]
+	H[i-1, j] + W [Gap na sequência horizontal]
+	H[i, j-1] + W [Gap na sequência vertical]
+	0 [Zera pontuações negativas]
+}
+
+Em que s(a[i], b[j]) é a pontuação de match (+5) ou mismatch (-3), e W é a penalidade de gap (-4). A grande diferença da programação dinâmica local para a global (Needleman-Wunsch) é a presença do 0 na equação, o que impede que matrizes tenham números negativos e permite que o alinhamento recomece quando a similaridade cai muito.
+
+3. Após preencher a matriz, o algoritmo localiza o maior valor absoluto em toda a matriz (não necessariamente na última célula). A partir dessa célula, ele "volta para trás" (traceback) refazendo o caminho de onde aquele valor foi derivado (diagonal, cima ou esquerda) até encontrar uma célula com valor 0. Esse caminho define o melhor alinhamento local.

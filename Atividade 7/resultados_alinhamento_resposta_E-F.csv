@@ -1,0 +1,3 @@
+Opcao_Alinhamento,Escore_Total,Sequencia_Topo (Seq1),Matches,Sequencia_Lateral (Seq2)
+Alinhamento 1,14,GAATTCAG,| | || |,GGA-TC-G
+Alinhamento 2,14,GAATTC-A,| | || |,GGA-TCGA
